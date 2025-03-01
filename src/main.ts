@@ -30,12 +30,17 @@ function loadTelegramSDK(): Promise<any> {
 }
 
 loadTelegramSDK()
-  .then(() => {
+  .then((tg) => {
     createApp(App)
       .use(router)
       .use(pinia)
       .use(createYmaps({ apikey: "6dc0eaa2-b378-4e77-9999-1cfdf124c037" }))
       .mount("#app");
+
+      if (tg) {
+        tg.expand();
+        tg.setupSwipeBehavior({ allow_vertical_swipe: false });
+      }
   })
   .catch((error) => {
     console.error("Error loading Telegram SDK:", error);

@@ -7,13 +7,13 @@ import Bookings from '../views/Bookings.vue';
 import BookingPage from '../views/BookingPage.vue';
 
 const routes: RouteRecordRaw[] = [
-  { path: '/', name: 'Home', component: Home },
-  { path: '/activities', name: 'Activities', component: Activities },
+  { path: '/', name: 'Home', component: Home, props: true },
+  { path: '/activities', name: 'Activities', component: Activities, props: true },
   { path: '/activity/:id', name: 'ActivityDetails', component: ActivityDetails, props: true },
-  { path: '/favorites', name: 'Favorites', component: Favorites }, 
-  { path: '/bookings', name: 'Bookings', component: Bookings },
-  { path: '/bookings/:id', name: 'Bookings', component: Bookings },
-  { path: '/booking', name: 'BookingPage', component: BookingPage },
+  { path: '/favorites', name: 'Favorites', component: Favorites, props: true }, 
+  { path: '/bookings', name: 'Bookings', component: Bookings, props: true },
+  { path: '/bookings/:id', name: 'Bookings', component: Bookings, props: true },
+  { path: '/booking', name: 'BookingPage', component: BookingPage, props: true },
 ];
 
 const router = createRouter({
