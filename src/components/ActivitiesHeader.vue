@@ -25,8 +25,8 @@
 <script setup>
 import { computed, defineProps } from "vue";
 import { useRouter } from "vue-router";
-import { useFavoritesStore } from "@/store/Favorites";
-import { useCategoriesStore } from "@/store/Categories";
+import { useFavoritesStore } from "@/store/favorites";
+import { useCategoriesStore } from "@/store/categories";
 
 const router = useRouter();
 
