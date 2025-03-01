@@ -12,7 +12,6 @@
   <script setup>
   import { defineProps, defineEmits } from 'vue';
   
-  // Принимаем props
   const props = defineProps({
     label: {
       type: String,
@@ -36,10 +35,8 @@
     },
   });
   
-  // Определяем пользовательские события
   const emit = defineEmits(['click']);
   
-  // Обработчик клика
   function handleClick() {
     if (!props.inactive) {
       emit('click');

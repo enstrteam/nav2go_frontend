@@ -30,7 +30,7 @@
       <FooterButton
         label="К ленте событий"
         color="#9747FF"
-        hover-color="#7a3cbf"
+        hoverColor="#7a3cbf"
         @click="goToActivities"
       />
     </footer>

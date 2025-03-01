@@ -3,11 +3,16 @@
 </template>
 
 <script>
-export default {
-  name: 'App',
-};
+import { onMounted } from 'vue';
+
+onMounted(() => {
+  const tg = window.Telegram?.WebApp;
+  if (tg) {
+    tg.expand();
+    tg.setupSwipeBehavior({ allow_vertical_swipe: false }); 
+  }
+});
 </script>
 
 <style>
-@import '@/assets/styles/reset.css';
 </style>

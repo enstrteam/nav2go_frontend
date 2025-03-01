@@ -2,6 +2,7 @@ import { createApp } from "vue";
 import { createPinia } from "pinia";
 import { createYmaps } from "vue-yandex-maps";
 import "./style.css";
+import "./assets/styles/reset.css";
 import App from "./App.vue";
 import router from "./router";
 
