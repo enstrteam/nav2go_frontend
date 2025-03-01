@@ -191,14 +191,12 @@ export const useActivitiesStore = defineStore("activities", () => {
     if (!likedActivities.value.some((item) => item.id === activity.id)) {
       likedActivities.value.push(activity); 
     }
-    console.log("After adding to liked:", likedActivities.value);
   }
 
   function addDislikedActivity(activity) {
     if (!dislikedActivities.value.some((item) => item.id === activity.id)) {
       dislikedActivities.value.push(activity);
     }
-    console.log("After adding to disliked:", dislikedActivities.value);
   }
 
   function removeActivityFromLiked(id) {

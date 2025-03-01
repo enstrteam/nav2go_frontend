@@ -25,7 +25,6 @@ export const useCategoriesStore = defineStore("categories", () => {
       selectedCategories.value.push(category);
     }
   }
-
   function removeCategory(category) {
     selectedCategories.value = selectedCategories.value.filter(
       (item) => item !== category

@@ -10,13 +10,11 @@ export const useBookingsStore = defineStore("bookings", () => {
     }
     console.log("Booked activities:", bookedActivities.value);
   }
-
   function removeBooking(id) {
     bookedActivities.value = bookedActivities.value.filter(
       (item) => item.id !== id
     );
     console.log("Booked activities after removal:", bookedActivities.value);
   }
-
   return { bookedActivities, addBooking, removeBooking };
 });
