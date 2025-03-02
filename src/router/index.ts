@@ -16,7 +16,7 @@ const routes: RouteRecordRaw[] = [
   { path: '/booking', name: 'BookingPage', component: BookingPage, props: true },
 ];
 
-const scrollBehavior: RouterScrollBehavior = (to, from, savedPosition) => {
+const scrollBehavior: RouterScrollBehavior = (_to, _from, savedPosition) => {
   if (savedPosition) {
     return savedPosition;
   }
