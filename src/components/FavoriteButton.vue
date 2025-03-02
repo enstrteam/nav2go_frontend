@@ -29,8 +29,8 @@ function toggleFavorite() {
 
 <template>
   <button class="favorite-button" @click.stop="toggleFavorite">
-    <Heart v-if="isFavorite" :size="24" fill="red" />
-    <Heart v-else :size="24" fill="white" />
+    <Heart v-if="isFavorite" :size="24" fill="red" stroke="white"/>
+    <Heart v-else :size="24" fill="white" stroke="white"/>
   </button>
 </template>
 

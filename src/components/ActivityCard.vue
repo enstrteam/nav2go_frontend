@@ -63,7 +63,7 @@ const emit = defineEmits(["swipe", "drag"]);
 
 const isDragging = ref(false);
 const startX = ref(0);
-const startY = ref(0); // Добавляем для отслеживания вертикальной координаты
+const startY = ref(0); 
 const currentX = ref(0);
 
 const cardStyle = computed(() => {
@@ -80,7 +80,7 @@ function startSwipe(event) {
   startX.value = event.type.includes("touch")
     ? event.touches[0].clientX
     : event.clientX;
-  startY.value = event.type.includes("touch") // Сохраняем начальную Y
+  startY.value = event.type.includes("touch") 
     ? event.touches[0].clientY
     : event.clientY;
 }
@@ -91,22 +91,20 @@ function moveSwipe(event) {
   const x = event.type.includes("touch")
     ? event.touches[0].clientX
     : event.clientX;
-  const y = event.type.includes("touch") // Получаем текущую Y
+  const y = event.type.includes("touch") 
     ? event.touches[0].clientY
     : event.clientY;
 
-  const deltaX = x - startX.value; // Горизонтальное перемещение
-  const deltaY = y - startY.value; // Вертикальное перемещение
+  const deltaX = x - startX.value; 
+  const deltaY = y - startY.value; 
 
-  // Если вертикальное перемещение больше горизонтального и превышает порог
   if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > 10) {
-    isDragging.value = false; // Прекращаем свайп карточки
-    currentX.value = 0; // Сбрасываем позицию
+    isDragging.value = false;
+    currentX.value = 0;
     emit("drag", 0);
-    return; // Позволяем браузеру обработать прокрутку
+    return; 
   }
 
-  // Если горизонтальное перемещение превышает порог, предотвращаем прокрутку
   if (Math.abs(deltaX) > 10) {
     event.preventDefault();
   }
