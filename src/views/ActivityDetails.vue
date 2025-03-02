@@ -1,6 +1,6 @@
 <template>
   <div>
-
+    <BackButton @click="router.back()"/>
     <ActivityHeader :activity="activity" />
     <div v-if="activity" class="activity-details">
       <ImageSlider :images="activity.images">
@@ -59,6 +59,7 @@
 
 <script setup>
 import { ref, computed, onMounted } from "vue";
+import { useWebAppBackButton, BackButton } from "vue-tg";
 import { useRoute, useRouter } from "vue-router";
 import { useActivitiesStore } from "@/store/activities";
 import ImageSlider from "@/components/ImageSlider.vue";
@@ -67,6 +68,9 @@ import ReviewsBlock from "@/components/ReviewsBlock.vue";
 import ActivityHeader from "../components/ActivityHeader.vue";
 import Button from "../components/Button.vue";
 import FavoriteButton from "../components/FavoriteButton.vue";
+
+const { showBackButton }  = useWebAppBackButton();
+showBackButton()
 
 const route = useRoute();
 const router = useRouter();
