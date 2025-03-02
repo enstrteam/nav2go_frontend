@@ -4,10 +4,9 @@
       <h1 class="title">Nav2Go</h1>
       <h2 class="subtitle">Алтай</h2>
       <p class="description">
-        <span v-if="user">Привет! {{ user.firstname }}</span>
-        <p>
+        <span v-if="user">Привет! {{user.id, user.username, user.firstname }}</span>
+        <br>
           Выбирай впечатления <br>и создавай уникальные воспоминания
-        </p>
       </p>
     </header>
 
