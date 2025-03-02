@@ -1,5 +1,6 @@
 <template>
   <div>
+    <BackButton @click="router.back()"/>
     <ActivitiesHeader :hasBookings="hasBookings" />
     <main class="activities">
       <TransitionGroup name="activity-list" tag="div" class="activity-list">
@@ -16,11 +17,17 @@
 
 <script setup>
 import { ref, computed, nextTick } from "vue";
+import { useWebAppBackButton, BackButton } from "vue-tg";
 import { useActivitiesStore } from "@/store/activities";
 import { useCategoriesStore } from "@/store/categories";
 import { useBookingsStore } from "@/store/bookings";
 import ActivitiesHeader from "@/components/ActivitiesHeader.vue";
 import ActivityCard from "@/components/ActivityCard.vue";
+import router from "../router";
+
+const  { showBackButton }  = useWebAppBackButton();
+
+showBackButton()
 
 const activitiesStore = useActivitiesStore();
 const categoriesStore = useCategoriesStore();

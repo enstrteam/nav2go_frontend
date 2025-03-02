@@ -5,13 +5,10 @@
 </template>
 
 <script setup lang="ts">
-import { useWebAppViewport, useWebAppBackButton } from 'vue-tg';
+import { useWebAppViewport } from 'vue-tg';
 
 const { disableVerticalSwipes } = useWebAppViewport();
-const  { showBackButton }  = useWebAppBackButton();
 
-
-showBackButton()
 disableVerticalSwipes();
   
 </script>
