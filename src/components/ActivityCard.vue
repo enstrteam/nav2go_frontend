@@ -152,7 +152,7 @@ function emitSwipe(direction) {
   box-sizing: border-box;
   position: relative;
   user-select: none;
-  touch-action: none;
+  touch-action: pan-y;
 }
 
 .title {
