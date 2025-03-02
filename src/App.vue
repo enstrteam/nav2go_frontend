@@ -19,7 +19,7 @@ disableVerticalSwipes();
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   max-width: 440px;
   min-height: 100vh;
   padding: 20px;

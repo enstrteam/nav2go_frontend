@@ -1,17 +1,20 @@
 <template>
   <div>
-    <BackButton @click="router.back()"/>
-    <ActivitiesHeader :hasBookings="hasBookings" />
-    <main class="activities">
-      <TransitionGroup name="activity-list" tag="div" class="activity-list">
-        <ActivityCard
-          v-for="activity in favoriteActivities"
-          :key="activity.id"
-          :activity="activity"
-          @swipe="handleSwipe(activity.id, $event)"
-        />
-      </TransitionGroup>
-    </main>
+      <BackButton @click="router.back()"/>
+      <ActivitiesHeader :hasBookings="hasBookings" />
+      <main v-if="favoriteActivities.length > 0" class="activities">
+        <TransitionGroup name="activity-list" tag="div" class="activity-list">
+          <ActivityCard
+            v-for="activity in favoriteActivities"
+            :key="activity.id"
+            :activity="activity"
+            @swipe="handleSwipe(activity.id, $event)"
+          />
+        </TransitionGroup>
+      </main>
+      <div v-else style="padding-top: 50px;">
+        У вас нет избранных активностей
+      </div>
   </div>
 </template>
 

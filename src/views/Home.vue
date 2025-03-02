@@ -1,11 +1,10 @@
 <template>
-  <div>
+  <div class="categories-wrapper">
     <header class="header">
       <h1 class="title">Nav2Go</h1>
       <h2 class="subtitle">Алтай</h2>
       <p class="description">
-        <span v-if="user">Привет! {{user.id, user.username, user.firstname }}</span>
-        <br>
+        <span v-if="user.id">Привет! {{user.id, user.username, user.firstname }} <br></span>
           Выбирай впечатления <br>и создавай уникальные воспоминания
       </p>
     </header>
@@ -55,7 +54,7 @@ const categories = computed(() => categoriesStore.categories);
 
 const selectedCategories = computed(() => categoriesStore.selectedCategories);
 
-const user = initDataUnsafe.user || {id: 1234, firstname: "Гость"}; 
+const user = initDataUnsafe.user || {}; 
 
 function isSelected(category) {
   return selectedCategories.value.includes(category);
@@ -84,6 +83,14 @@ function goToActivities() {
 </script>
 
 <style scoped>
+.categories-wrapper {
+  max-width: 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+}
+
 .header {
   margin-bottom: 30px;
   text-align: center;
