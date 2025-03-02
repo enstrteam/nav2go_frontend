@@ -4,7 +4,10 @@
       <h1 class="title">Nav2Go</h1>
       <h2 class="subtitle">Алтай</h2>
       <p class="description">
-        Выбирай впечатления <br>и создавай уникальные воспоминания
+        <span v-if="user">Привет! {{ user.firstname }}</span>
+        <p>
+          Выбирай впечатления <br>и создавай уникальные воспоминания
+        </p>
       </p>
     </header>
 
@@ -40,15 +43,20 @@
 <script setup>
 import { computed } from 'vue';
 import { useRouter } from 'vue-router';
+import { useWebApp } from "vue-tg";
 import CategoryButton from '@/components/CategoryButton.vue';
 import FooterButton from '@/components/FooterButton.vue';
 import { useCategoriesStore } from '@/store/categories';
+
+const { initDataUnsafe } = useWebApp();
 
 const categoriesStore = useCategoriesStore();
 
 const categories = computed(() => categoriesStore.categories);
 
 const selectedCategories = computed(() => categoriesStore.selectedCategories);
+
+const user = initDataUnsafe.user || {id: 1234, firstname: "Гость"}; 
 
 function isSelected(category) {
   return selectedCategories.value.includes(category);
