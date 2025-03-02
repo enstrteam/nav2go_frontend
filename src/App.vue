@@ -4,7 +4,12 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import { useWebAppViewport } from 'vue-tg';
+
+const { disableVerticalSwipes } = useWebAppViewport();
+
+disableVerticalSwipes();
   
 </script>
 
