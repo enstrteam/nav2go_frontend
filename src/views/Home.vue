@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <header class="header">
       <h1 class="title">Nav2Go</h1>
       <h2 class="subtitle">Алтай</h2>
@@ -101,12 +101,11 @@ function goToActivities() {
 .categories {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
   gap: 20px;
   justify-content: center;
   padding-bottom: 30px;
   margin-bottom: auto;
-  width: 100%;
-  max-width: 400px;
 }
 
 .footer-buttons {

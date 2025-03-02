@@ -1,5 +1,4 @@
 <template>
-    <div class="container">
       <ActivitiesHeader :hasBookings="true" />
   
       <main class="activities">
@@ -12,7 +11,6 @@
           />
         </TransitionGroup>
       </main>
-    </div>
   </template>
   
   <script setup>
@@ -34,20 +32,12 @@
       console.log("Добавлено в непонравившиеся:", card);
     }
   
-    // Удаляем активность из бронирований
     bookingsStore.removeBooking(id);
   }
   </script>
   
   <style scoped>
-  .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-    padding: 0;
-    font-family: Arial, sans-serif;
-  }
+  
   
   .activities {
     padding: 0px 20px;

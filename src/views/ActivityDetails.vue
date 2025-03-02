@@ -1,5 +1,6 @@
 <template>
-  <div class="container">
+  <div>
+
     <ActivityHeader :activity="activity" />
     <div v-if="activity" class="activity-details">
       <ImageSlider :images="activity.images">
@@ -58,7 +59,7 @@
 
 <script setup>
 import { ref, computed, onMounted } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useActivitiesStore } from "@/store/activities";
 import ImageSlider from "@/components/ImageSlider.vue";
 import MapBox from "@/components/MapBox.vue";
@@ -68,6 +69,7 @@ import Button from "../components/Button.vue";
 import FavoriteButton from "../components/FavoriteButton.vue";
 
 const route = useRoute();
+const router = useRouter();
 const activitiesStore = useActivitiesStore();
 
 const activity = ref(null);
@@ -89,21 +91,14 @@ const averageRating = computed(() => {
 </script>
 
 <style scoped>
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
-  padding: 0;
-  font-family: Arial, sans-serif;
-}
+
 .activity-details {
   width: 100%;
   display: flex;
   flex-direction: column;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px 20px 20px;
+  padding: 0;
   font-family: Arial, sans-serif;
   position: relative;
 }

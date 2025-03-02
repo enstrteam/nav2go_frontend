@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <ActivitiesHeader :hasBookings="hasBookings" />
     <main class="activities">
       <TransitionGroup name="activity-list" tag="div" class="activity-list">
@@ -67,18 +67,10 @@ function handleSwipe(id, swipeData) {
 
 
 <style scoped>
-.container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
-  padding: 0;
-  font-family: Arial, sans-serif;
-}
+
 
 .activities {
-  padding: 0px 20px;
+  /* padding: 0px 20px; */
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
