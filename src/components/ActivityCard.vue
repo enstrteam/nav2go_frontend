@@ -44,7 +44,6 @@
 <script setup>
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
-
 import ImageSlider from "@/components/ImageSlider.vue";
 import Button from "@/components/Button.vue";
 import FavoriteButton from "./FavoriteButton.vue";
@@ -62,9 +61,9 @@ const activity = computed(() => props.activity);
 
 const emit = defineEmits(["swipe", "drag"]);
 
-const card = ref(null);
 const isDragging = ref(false);
 const startX = ref(0);
+const startY = ref(0); // Добавляем для отслеживания вертикальной координаты
 const currentX = ref(0);
 
 const cardStyle = computed(() => {
@@ -81,14 +80,38 @@ function startSwipe(event) {
   startX.value = event.type.includes("touch")
     ? event.touches[0].clientX
     : event.clientX;
+  startY.value = event.type.includes("touch") // Сохраняем начальную Y
+    ? event.touches[0].clientY
+    : event.clientY;
 }
 
 function moveSwipe(event) {
   if (!isDragging.value) return;
+
   const x = event.type.includes("touch")
     ? event.touches[0].clientX
     : event.clientX;
-  currentX.value = x - startX.value;
+  const y = event.type.includes("touch") // Получаем текущую Y
+    ? event.touches[0].clientY
+    : event.clientY;
+
+  const deltaX = x - startX.value; // Горизонтальное перемещение
+  const deltaY = y - startY.value; // Вертикальное перемещение
+
+  // Если вертикальное перемещение больше горизонтального и превышает порог
+  if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > 10) {
+    isDragging.value = false; // Прекращаем свайп карточки
+    currentX.value = 0; // Сбрасываем позицию
+    emit("drag", 0);
+    return; // Позволяем браузеру обработать прокрутку
+  }
+
+  // Если горизонтальное перемещение превышает порог, предотвращаем прокрутку
+  if (Math.abs(deltaX) > 10) {
+    event.preventDefault();
+  }
+
+  currentX.value = deltaX;
   emit("drag", currentX.value);
 }
 
