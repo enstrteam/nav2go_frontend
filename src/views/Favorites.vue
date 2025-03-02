@@ -18,11 +18,15 @@
 <script setup>
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
+import { useWebAppBackButton, BackButton } from "vue-tg";
 import { useFavoritesStore } from "@/store/favorites";
 import ActivitiesHeader from "@/components/ActivitiesHeader.vue";
 import ActivityCard from "@/components/ActivityCard.vue";
 
 const router = useRouter();
+
+const  { showBackButton }  = useWebAppBackButton();
+showBackButton()
 
 const favoritesStore = useFavoritesStore();
 
