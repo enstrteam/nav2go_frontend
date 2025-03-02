@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory,type RouteRecordRaw } from 'vue-router';
+import { createRouter, createWebHistory,type RouteRecordRaw, type RouterScrollBehavior } from 'vue-router';
 import Home from '../views/Home.vue';
 import Activities from '../views/Activities.vue';
 import Favorites from '../views/Favorites.vue'; 
@@ -16,14 +16,19 @@ const routes: RouteRecordRaw[] = [
   { path: '/booking', name: 'BookingPage', component: BookingPage, props: true },
 ];
 
+const scrollBehavior: RouterScrollBehavior = (to, from, savedPosition) => {
+  if (savedPosition) {
+    return savedPosition;
+  }
+    return { 
+      top: 0,
+    };
+};
+
 const router = createRouter({
   history: createWebHistory(),
   routes,
-  scrollBehavior() {
-      return { 
-        top: 0,
-      };
-  },
+  scrollBehavior
 });
 
 export default router;
