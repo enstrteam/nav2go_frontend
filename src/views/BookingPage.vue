@@ -1,9 +1,19 @@
 <template>
+    <div>
+      <BackButton @click="router.back()"/>
       <h1>Страница бронирования</h1>
       <p>Страница находится в разработке.</p>
+    </div>
   </template>
   
   <script setup>
+  import { useWebAppBackButton, BackButton } from "vue-tg";
+  import { useRouter } from "vue-router";
+  
+  const router = useRouter();
+  
+  const { showBackButton }  = useWebAppBackButton();
+  showBackButton()
   </script>
   
   <style scoped>

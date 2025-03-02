@@ -1,5 +1,6 @@
 <template>
   <div>
+    <BackButton @click="router.back()"/>
     <ActivitiesHeader :hasBookings="hasBookings" />
     <main class="activities">
       <TransitionGroup name="activity-list" tag="div" class="activity-list">
@@ -16,9 +17,12 @@
 
 <script setup>
 import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
 import { useFavoritesStore } from "@/store/favorites";
 import ActivitiesHeader from "@/components/ActivitiesHeader.vue";
 import ActivityCard from "@/components/ActivityCard.vue";
+
+const router = useRouter();
 
 const favoritesStore = useFavoritesStore();
 
