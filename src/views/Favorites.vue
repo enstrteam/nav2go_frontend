@@ -60,6 +60,7 @@ function handleSwipe(id, swipeData) {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  position: relative;
 }
 
 .activity-list-enter-from {
@@ -78,8 +79,8 @@ function handleSwipe(id, swipeData) {
 
 .activity-list-leave-active {
   position: absolute;
-  width: 100%; /* Фиксируем ширину карточки во время ухода */
-  max-width: 400px; /* Соответствует max-width в ActivityCard */
+  width: 100%; 
+  max-width: 400px; 
 }
 
 .activity-list-leave-from {
