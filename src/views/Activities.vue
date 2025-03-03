@@ -1,6 +1,6 @@
 <template>
   <div>
-    <BackButton @click="router.back()"/>
+    <BackButton @click="router.back()" />
     <ActivitiesHeader :hasBookings="hasBookings" />
     <main class="activities">
       <TransitionGroup name="activity-list" tag="div" class="activity-list">
@@ -16,7 +16,7 @@
 </template>
 
 <script setup>
-import { ref, computed, nextTick } from "vue";
+import { ref, computed } from "vue"; 
 import { useWebAppBackButton, BackButton } from "vue-tg";
 import { useActivitiesStore } from "@/store/activities";
 import { useCategoriesStore } from "@/store/categories";
@@ -25,9 +25,9 @@ import ActivitiesHeader from "@/components/ActivitiesHeader.vue";
 import ActivityCard from "@/components/ActivityCard.vue";
 import router from "../router";
 
-const  { showBackButton }  = useWebAppBackButton();
+const { showBackButton } = useWebAppBackButton();
 
-showBackButton()
+showBackButton();
 
 const activitiesStore = useActivitiesStore();
 const categoriesStore = useCategoriesStore();
@@ -39,45 +39,43 @@ const bookedActivities = computed(() => bookingsStore.bookedActivities);
 
 const hasBookings = computed(() => {
   if (bookedActivities.value.length === 0) return false;
-  const activityIds = bookedActivities.value.map(activity => activity.activityId);
-  return activities.value.some(activity => activityIds.includes(activity.id));
+  const activityIds = bookedActivities.value.map((activity) => activity.activityId);
+  return activities.value.some((activity) => activityIds.includes(activity.id));
 });
 
 const filteredActivities = computed(() => {
   if (selectedCategories.value.length === 0) {
     return activities.value;
   }
-  return activities.value.filter((activity)  =>  selectedCategories.value.includes(activity.category))
+  return activities.value.filter((activity) =>
+    selectedCategories.value.includes(activity.category)
+  );
 });
-
 
 const visibleActivities = ref(filteredActivities.value);
 
 function removeVisibleActivity(id) {
-  visibleActivities.value.splice(visibleActivities.value.findIndex(activity => activity.id === id), 1);
+  visibleActivities.value.splice(
+    visibleActivities.value.findIndex((activity) => activity.id === id),
+    1
+  );
 }
 
 function handleSwipe(id, swipeData) {
   const { direction, card } = swipeData;
-  // const positions = new Map();
   removeVisibleActivity(id);
   console.log(swipeData);
 
   if (direction === "right") {
-    activitiesStore.addLikedActivity(card); 
+    activitiesStore.addLikedActivity(card);
   } else if (direction === "left") {
-    activitiesStore.addDislikedActivity(card); 
+    activitiesStore.addDislikedActivity(card);
   }
 }
-
 </script>
 
-
 <style scoped>
-
-
 .activities {
-  /* padding: 0px 20px; */
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
@@ -93,19 +91,31 @@ function handleSwipe(id, swipeData) {
   flex-direction: column;
   gap: 20px;
 }
+
 .activity-list-enter-from {
   opacity: 0;
 }
+
 .activity-list-enter-to {
   opacity: 1;
 }
+
 .activity-list-enter-active,
 .activity-list-leave-active,
 .activity-list-move {
-  transition: all 0.5s;
+  transition: all 0.5s ease;
 }
-.activity-list-leave-active { position: absolute; }
-.activity-list-leave-from { opacity: 1; }
-.activity-list-leave-to { opacity: 0; }
 
+.activity-list-leave-active {
+  position: absolute;
+  /* width: 100%;  */
+}
+
+.activity-list-leave-from {
+  opacity: 1;
+}
+
+.activity-list-leave-to {
+  opacity: 0;
+}
 </style>

@@ -35,8 +35,11 @@
             })
         "
       />
-
-      <Button text="Забронировать" customClass="book-now" :onClick="() => router.push({ name: 'BookingPage' })"/>
+      <Button
+        text="Забронировать"
+        customClass="book-now"
+        :onClick="() => router.push({ name: 'BookingPage' })"
+      />
     </div>
   </div>
 </template>
@@ -63,15 +66,17 @@ const emit = defineEmits(["swipe", "drag"]);
 
 const isDragging = ref(false);
 const startX = ref(0);
-const startY = ref(0); 
+const startY = ref(0);
 const currentX = ref(0);
+const isSwiping = ref(false);
 
 const cardStyle = computed(() => {
   const translateX = currentX.value;
   const rotateDeg = (currentX.value / 100) * 10;
   return {
     transform: `translateX(${translateX}px) rotate(${rotateDeg}deg)`,
-    transition: isDragging.value ? "none" : "transform 0.5s ease-out",
+    transition: isDragging.value ? "none" : "transform 0.5s ease-out, opacity 0.5s ease-out",
+    opacity: isSwiping.value ? 0 : 1,
   };
 });
 
@@ -80,7 +85,7 @@ function startSwipe(event) {
   startX.value = event.type.includes("touch")
     ? event.touches[0].clientX
     : event.clientX;
-  startY.value = event.type.includes("touch") 
+  startY.value = event.type.includes("touch")
     ? event.touches[0].clientY
     : event.clientY;
 }
@@ -91,21 +96,21 @@ function moveSwipe(event) {
   const x = event.type.includes("touch")
     ? event.touches[0].clientX
     : event.clientX;
-  const y = event.type.includes("touch") 
+  const y = event.type.includes("touch")
     ? event.touches[0].clientY
     : event.clientY;
 
-  const deltaX = x - startX.value; 
-  const deltaY = y - startY.value; 
+  const deltaX = x - startX.value;
+  const deltaY = y - startY.value;
 
-  if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > 10) {
+  if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > 15) {
     isDragging.value = false;
     currentX.value = 0;
     emit("drag", 0);
-    return; 
+    return;
   }
 
-  if (Math.abs(deltaX) > 10) {
+  if (Math.abs(deltaX) > 15) {
     event.preventDefault();
   }
 
@@ -119,18 +124,18 @@ function endSwipe() {
 
   const threshold = 150;
   if (Math.abs(currentX.value) > threshold) {
+    isSwiping.value = true;
     const direction = currentX.value > 0 ? "right" : "left";
     currentX.value = direction === "right" ? 500 : -500;
+
     setTimeout(() => {
       emitSwipe(direction);
       currentX.value = 0;
-      emit("drag", 0);
+      isSwiping.value = false;
     }, 500);
   } else {
-    setTimeout(() => {
-      currentX.value = 0;
-      emit("drag", 0);
-    }, 10);
+    currentX.value = 0;
+    emit("drag", 0);
   }
 }
 
