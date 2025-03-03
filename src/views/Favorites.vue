@@ -41,6 +41,7 @@ function handleSwipe(id, swipeData) {
   const { direction } = swipeData;
   if (direction === "left" || direction === "right") {
     favoritesStore.removeFavorite(id); 
+  }
 }
 </script>
 
