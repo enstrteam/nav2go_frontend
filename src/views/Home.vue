@@ -4,7 +4,7 @@
       <h1 class="title">Nav2Go</h1>
       <h2 class="subtitle">Алтай</h2>
       <p class="description">
-        <span v-if="user.id">Привет! {{user}} </span>
+        <span v-if="user.id">Привет! {{user.id}} </span>
           Выбирай впечатления <br>и создавай уникальные воспоминания
       </p>
     </header>
