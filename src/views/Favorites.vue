@@ -1,20 +1,20 @@
 <template>
   <div>
-      <BackButton @click="router.back()"/>
-      <ActivitiesHeader :hasBookings="hasBookings" />
-      <main v-if="favoriteActivities.length > 0" class="activities">
-        <TransitionGroup name="activity-list" tag="div" class="activity-list">
-          <ActivityCard
-            v-for="activity in favoriteActivities"
-            :key="activity.id"
-            :activity="activity"
-            @swipe="handleSwipe(activity.id, $event)"
-          />
-        </TransitionGroup>
-      </main>
-      <div v-else style="padding-top: 50px;">
-        У вас нет избранных активностей
-      </div>
+    <BackButton @click="router.back()" />
+    <ActivitiesHeader :hasBookings="hasBookings" />
+    <main v-if="favoriteActivities.length > 0" class="activities">
+      <TransitionGroup name="activity-list" tag="div" class="activity-list">
+        <ActivityCard
+          v-for="activity in favoriteActivities"
+          :key="activity.id"
+          :activity="activity"
+          @swipe="handleSwipe(activity.id, $event)"
+        />
+      </TransitionGroup>
+    </main>
+    <div v-else style="padding-top: 50px;">
+      У вас нет избранных активностей
+    </div>
   </div>
 </template>
 
@@ -28,8 +28,8 @@ import ActivityCard from "@/components/ActivityCard.vue";
 
 const router = useRouter();
 
-const  { showBackButton }  = useWebAppBackButton();
-showBackButton()
+const { showBackButton } = useWebAppBackButton();
+showBackButton();
 
 const favoritesStore = useFavoritesStore();
 
@@ -37,10 +37,15 @@ const favoriteActivities = computed(() => favoritesStore.favoriteActivities);
 
 const hasBookings = ref(false);
 
+function handleSwipe(id, swipeData) {
+  const { direction } = swipeData;
+  if (direction === "left" || direction === "right") {
+    favoritesStore.removeFavorite(id); // Удаляем из избранного
+  }
+}
 </script>
 
 <style scoped>
-
 .activities {
   width: 100%;
   max-width: 1200px;
@@ -68,11 +73,13 @@ const hasBookings = ref(false);
 .activity-list-enter-active,
 .activity-list-leave-active,
 .activity-list-move {
-  transition: all 0.5s;
+  transition: all 0.5s ease;
 }
 
 .activity-list-leave-active {
   position: absolute;
+  width: 100%; /* Фиксируем ширину карточки во время ухода */
+  max-width: 400px; /* Соответствует max-width в ActivityCard */
 }
 
 .activity-list-leave-from {
