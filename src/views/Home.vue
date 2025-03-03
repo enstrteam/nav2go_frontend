@@ -54,6 +54,8 @@ const categories = computed(() => categoriesStore.categories);
 
 const selectedCategories = computed(() => categoriesStore.selectedCategories);
 
+console.log(user)
+
 const user = initDataUnsafe.user || {}; 
 
 function isSelected(category) {
