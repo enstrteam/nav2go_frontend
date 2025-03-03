@@ -32,7 +32,6 @@ const { showBackButton } = useWebAppBackButton();
 showBackButton();
 
 const favoritesStore = useFavoritesStore();
-
 const favoriteActivities = computed(() => favoritesStore.favoriteActivities);
 
 const hasBookings = ref(false);
