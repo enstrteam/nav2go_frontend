@@ -40,8 +40,7 @@ const hasBookings = ref(false);
 function handleSwipe(id, swipeData) {
   const { direction } = swipeData;
   if (direction === "left" || direction === "right") {
-    favoritesStore.removeFavorite(id); // Удаляем из избранного
-  }
+    favoritesStore.removeFavorite(id); 
 }
 </script>
 
