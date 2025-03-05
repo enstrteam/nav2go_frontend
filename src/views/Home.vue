@@ -19,6 +19,16 @@
       />
     </div>
 
+    <Modal :show="showModal" @close="closeModal">
+      <div class="tutorial-content">
+        <p class="modal-text">
+          Смахни карточку влево, если приключение не по душе, <br>
+          или вправо — если готов отправиться в это путешествие!
+        </p>
+        <Button class="modal-button" @click="closeModal">Понял!</Button>
+      </div>
+    </Modal>
+
     <footer class="footer-buttons">
       <FooterButton
         label="Сбросить фильтры"
@@ -32,19 +42,23 @@
         label="К ленте событий"
         color="#9747FF"
         hoverColor="#7a3cbf"
-        @click="goToActivities"
+        @click="handleActivitiesClick()"
       />
     </footer>
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useWebApp } from "vue-tg";
 import CategoryButton from '@/components/CategoryButton.vue';
 import FooterButton from '@/components/FooterButton.vue';
+import Button from '@/components/Button.vue';
+import Modal from '@/components/Modal.vue';
 import { useCategoriesStore } from '@/store/categories';
+
+const router = useRouter();
 
 const { initDataUnsafe } = useWebApp();
 
@@ -56,6 +70,9 @@ const selectedCategories = computed(() => categoriesStore.selectedCategories);
 
 
 const user = initDataUnsafe.user || {}; 
+
+const showModal = ref(false);
+const isFirstClick = ref(localStorage.getItem('isFirstClick') !== 'false');
 
 function isSelected(category) {
   return selectedCategories.value.includes(category);
@@ -74,7 +91,25 @@ function resetFilters() {
   categoriesStore.clearSelectedCategories(); 
 }
 
-const router = useRouter();
+// function handleActivitiesClick() {
+//   if (isFirstClick.value) {
+//     showModal.value = true;
+//     isFirstClick.value = false;
+//     localStorage.setItem('isFirstClick', 'false');
+//   } else {
+//     goToActivities();
+//   }
+// }
+function handleActivitiesClick() {
+    showModal.value = true;
+  
+}
+
+function closeModal() {
+  showModal.value = false;
+  goToActivities();
+}
+
 function goToActivities() {
   router.push({
     name: 'Activities',
@@ -130,4 +165,33 @@ function goToActivities() {
   gap: 10px;
   margin-top: auto;
 }
+
+/* Стили для содержимого конкретного модального окна */
+.tutorial-content {
+  text-align: center;
+  padding: 20px;
+}
+
+.modal-text {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.modal-button {
+  background: #9747FF;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.2s;
+}
+
+.modal-button:hover {
+  background: #7a3cbf;
+}
+
 </style>
