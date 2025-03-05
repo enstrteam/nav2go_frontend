@@ -4,7 +4,7 @@
       <h1 class="title">Nav2Go</h1>
       <h2 class="subtitle">Алтай</h2>
       <p class="description">
-        <span v-if="user.id">Привет! {{user.id}} </span>
+        <span v-if="user.id">Привет! {{user.username}} </span>
           Выбирай впечатления <br>и создавай уникальные воспоминания
       </p>
     </header>
@@ -53,6 +53,7 @@ const categoriesStore = useCategoriesStore();
 const categories = computed(() => categoriesStore.categories);
 
 const selectedCategories = computed(() => categoriesStore.selectedCategories);
+
 
 const user = initDataUnsafe.user || {}; 
 
