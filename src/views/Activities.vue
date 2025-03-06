@@ -14,9 +14,13 @@
     </main>
     <Modal :show="isFirstClick" @close="closeModal">
       <div class="tutorial-content">
+        <img src="/images/swipe-left.png" width="50" style="margin-bottom: 15px;">
         <p class="modal-text">
-          Смахни карточку влево, если приключение не по душе, <br>
-          или вправо — если готов отправиться в это путешествие!
+          Смахни карточку <b>влево</b>, если приключение не по душе
+        </p>
+        <img src="/images/swipe-right.png" width="50" style="margin-bottom: 15px;">
+        <p class="modal-text">
+          <b>вправо</b> — если готов отправиться в это путешествие!
         </p>
         <Button class="modal-button" @click="closeModal">Понял!</Button>
       </div>
@@ -143,13 +147,16 @@ function handleSwipe(id, swipeData) {
 .tutorial-content {
   text-align: center;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .modal-text {
   font-size: 16px;
   color: #333;
-  margin-bottom: 20px;
   line-height: 1.5;
+  margin-bottom: 20px;
 }
 
 .modal-button {
