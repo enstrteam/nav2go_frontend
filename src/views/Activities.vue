@@ -22,7 +22,7 @@
         <p class="modal-text">
           <b>вправо</b> — если готов отправиться в это путешествие!
         </p>
-        <Button class="modal-button" @click="closeModal">Понял!</Button>
+        <Button class="modal-button" @click="closeModal">Понятно!</Button>
       </div>
     </Modal>
   </div>
@@ -164,7 +164,7 @@ function handleSwipe(id, swipeData) {
   color: white;
   border: none;
   padding: 10px 20px;
-  border-radius: 8px;
+  border-radius: 15px;
   cursor: pointer;
   font-size: 16px;
   transition: background 0.2s;
