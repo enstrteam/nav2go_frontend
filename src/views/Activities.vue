@@ -12,6 +12,19 @@
         />
       </TransitionGroup>
     </main>
+    <Modal :show="isFirstClick" @close="closeModal">
+      <div class="tutorial-content">
+        <img src="/images/swipe-left.png" width="50" style="margin-bottom: 15px;">
+        <p class="modal-text">
+          Смахни карточку <b>влево</b>, если приключение не по душе
+        </p>
+        <img src="/images/swipe-right.png" width="50" style="margin-bottom: 15px;">
+        <p class="modal-text">
+          <b>вправо</b> — если готов отправиться в это путешествие!
+        </p>
+        <Button class="modal-button" @click="closeModal">Понятно!</Button>
+      </div>
+    </Modal>
   </div>
 </template>
 
@@ -23,6 +36,8 @@ import { useCategoriesStore } from "@/store/categories";
 import { useBookingsStore } from "@/store/bookings";
 import ActivitiesHeader from "@/components/ActivitiesHeader.vue";
 import ActivityCard from "@/components/ActivityCard.vue";
+import Modal from "@/components/Modal.vue";
+import Button from "@/components/Button.vue";
 import router from "../router";
 
 const { showBackButton } = useWebAppBackButton();
@@ -36,6 +51,15 @@ const bookingsStore = useBookingsStore();
 const activities = computed(() => activitiesStore.activities);
 const selectedCategories = computed(() => categoriesStore.selectedCategories);
 const bookedActivities = computed(() => bookingsStore.bookedActivities);
+
+const showModal = ref(true);
+const isFirstClick = ref(sessionStorage.getItem('isFirstClick') !== 'false');
+
+function closeModal() {
+  showModal.value = false;
+  isFirstClick.value = false;
+  sessionStorage.setItem('isFirstClick', 'false');
+}
 
 const hasBookings = computed(() => {
   if (bookedActivities.value.length === 0) return false;
@@ -117,5 +141,36 @@ function handleSwipe(id, swipeData) {
 
 .activity-list-leave-to {
   opacity: 0;
+}
+
+/* Стили для содержимого конкретного модального окна */
+.tutorial-content {
+  text-align: center;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal-text {
+  font-size: 16px;
+  color: #333;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.modal-button {
+  background: #9747FF;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.2s;
+}
+
+.modal-button:hover {
+  background: #7a3cbf;
 }
 </style>

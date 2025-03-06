@@ -32,19 +32,21 @@
         label="К ленте событий"
         color="#9747FF"
         hoverColor="#7a3cbf"
-        @click="goToActivities"
+        @click="goToActivities()"
       />
     </footer>
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useWebApp } from "vue-tg";
 import CategoryButton from '@/components/CategoryButton.vue';
 import FooterButton from '@/components/FooterButton.vue';
 import { useCategoriesStore } from '@/store/categories';
+
+const router = useRouter();
 
 const { initDataUnsafe } = useWebApp();
 
@@ -74,7 +76,6 @@ function resetFilters() {
   categoriesStore.clearSelectedCategories(); 
 }
 
-const router = useRouter();
 function goToActivities() {
   router.push({
     name: 'Activities',
@@ -130,4 +131,33 @@ function goToActivities() {
   gap: 10px;
   margin-top: auto;
 }
+
+/* Стили для содержимого конкретного модального окна */
+.tutorial-content {
+  text-align: center;
+  padding: 20px;
+}
+
+.modal-text {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.modal-button {
+  background: #9747FF;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.2s;
+}
+
+.modal-button:hover {
+  background: #7a3cbf;
+}
+
 </style>
