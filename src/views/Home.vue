@@ -19,16 +19,6 @@
       />
     </div>
 
-    <Modal :show="showModal" @close="closeModal">
-      <div class="tutorial-content">
-        <p class="modal-text">
-          Смахни карточку влево, если приключение не по душе, <br>
-          или вправо — если готов отправиться в это путешествие!
-        </p>
-        <Button class="modal-button" @click="closeModal">Понял!</Button>
-      </div>
-    </Modal>
-
     <footer class="footer-buttons">
       <FooterButton
         label="Сбросить фильтры"
@@ -42,7 +32,7 @@
         label="К ленте событий"
         color="#9747FF"
         hoverColor="#7a3cbf"
-        @click="handleActivitiesClick()"
+        @click="goToActivities()"
       />
     </footer>
   </div>
@@ -54,8 +44,6 @@ import { useRouter } from 'vue-router';
 import { useWebApp } from "vue-tg";
 import CategoryButton from '@/components/CategoryButton.vue';
 import FooterButton from '@/components/FooterButton.vue';
-import Button from '@/components/Button.vue';
-import Modal from '@/components/Modal.vue';
 import { useCategoriesStore } from '@/store/categories';
 
 const router = useRouter();
@@ -70,9 +58,6 @@ const selectedCategories = computed(() => categoriesStore.selectedCategories);
 
 
 const user = initDataUnsafe.user || {}; 
-
-const showModal = ref(false);
-const isFirstClick = ref(sessionStorage.getItem('isFirstClick') !== 'false');
 
 function isSelected(category) {
   return selectedCategories.value.includes(category);
@@ -89,21 +74,6 @@ function toggleCategory(category) {
 
 function resetFilters() {
   categoriesStore.clearSelectedCategories(); 
-}
-
-function handleActivitiesClick() {
-  if (isFirstClick.value) {
-    showModal.value = true;
-    isFirstClick.value = false;
-    sessionStorage.setItem('isFirstClick', 'false');
-  } else {
-    goToActivities();
-  }
-}
-
-function closeModal() {
-  showModal.value = false;
-  goToActivities();
 }
 
 function goToActivities() {
