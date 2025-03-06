@@ -72,7 +72,7 @@ const selectedCategories = computed(() => categoriesStore.selectedCategories);
 const user = initDataUnsafe.user || {}; 
 
 const showModal = ref(false);
-const isFirstClick = ref(localStorage.getItem('isFirstClick') !== 'false');
+const isFirstClick = ref(sessionStorage.getItem('isFirstClick') !== 'false');
 
 function isSelected(category) {
   return selectedCategories.value.includes(category);
@@ -91,18 +91,14 @@ function resetFilters() {
   categoriesStore.clearSelectedCategories(); 
 }
 
-// function handleActivitiesClick() {
-//   if (isFirstClick.value) {
-//     showModal.value = true;
-//     isFirstClick.value = false;
-//     localStorage.setItem('isFirstClick', 'false');
-//   } else {
-//     goToActivities();
-//   }
-// }
 function handleActivitiesClick() {
+  if (isFirstClick.value) {
     showModal.value = true;
-  
+    isFirstClick.value = false;
+    sessionStorage.setItem('isFirstClick', 'false');
+  } else {
+    goToActivities();
+  }
 }
 
 function closeModal() {
